@@ -1,3 +1,29 @@
 import { Routes } from '@angular/router';
+import { RegisterComponent } from './Features/auth/register/register.component';
+import { LoginComponent } from './Features/auth/login/login.component';
+import { HomeComponent } from './Features/products/home/home.component';
+import { CartComponent } from './Features/products/cart/cart.component';
+import { BrandsComponent } from './Features/products/brands/brands.component';
+import { CategoriesComponent } from './Features/products/categories/categories.component';
+import { ProductDetailsComponent } from './Features/products/product-details/product-details.component';
+import { noDeprecation } from 'process';
+import { NotFoundComponent } from '../layout/not-found/not-found.component';
+import { authGuard } from './auth.guard';
+import { ProductsSharedComponent } from './shared/components/products-shared/products-shared.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+
+  {path:"" , redirectTo:"register" , pathMatch:"full"},
+  {path:"register" , component:RegisterComponent,title:"Register"},
+  {path:"login" , component:LoginComponent,title:"Login"},
+  {path:"home" , component:HomeComponent,title:"Home", canActivate:[authGuard]},
+  {path:"cart" , component:CartComponent,title:"Cart", canActivate:[authGuard]},
+  {path:"products" , component:ProductsSharedComponent,title:"Products", canActivate:[authGuard]},
+  {path:"brands" , component:BrandsComponent,title:"Brands", canActivate:[authGuard]},
+  {path:"categories" , component:CategoriesComponent,title:"Categories", canActivate:[authGuard]},
+  {path:"details" , component:ProductDetailsComponent,title:"Product Details", canActivate:[authGuard]},
+  {path:"**" , component:NotFoundComponent,title:"Not Found"},
+
+
+
+];

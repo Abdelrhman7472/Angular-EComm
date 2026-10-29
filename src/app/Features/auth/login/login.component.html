@@ -1,0 +1,77 @@
+<h2 class="text-center text-green-700 text-5xl">Login   Form</h2>
+
+<div class="w-9/12 mx-auto">
+
+  @if(errorMessage().length>0)
+  {
+    <div class="p-4 mb-4 text-sm text-red-800 rounded-base bg-danger-soft" role="alert">
+      <span class="font-medium">{{errorMessage()}}</span>
+    </div>
+  }
+
+  <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()" class="my-4">
+
+
+
+    <div class="mb-6">
+        <label  class="text-green-700 block mb-2.5 text-sm font-medium text-heading">Email :</label>
+        <input formControlName="email" type="email"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="Enter your email" />
+
+      @if (this.loginForm.get('email')?.errors && this.loginForm.get('email')?.touched)
+      {
+        @if(this.loginForm.get('email')?.errors?.['required'])
+        {
+          <div class="p-4 mb-4 text-sm text-red-800 rounded-base bg-danger-soft" role="alert">
+            <span class="font-medium">Required</span>
+          </div>
+        }
+       @else if(this.loginForm.get('email')?.errors?.['pattern'])
+         {
+           <div class="p-4 mb-4 text-sm text-red-800 rounded-base bg-danger-soft" role="alert">
+             <span class="font-medium">Invalid email format</span>
+           </div>
+         }
+
+       }
+
+
+
+    </div>
+    <div class="mb-6">
+        <label  class="text-green-700 block mb-2.5 text-sm font-medium text-heading">Password :</label>
+        <input  formControlName="password" type="text"
+        class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+        placeholder="Enter your password" />
+
+    @if (this.loginForm.get('password')?.errors && this.loginForm.get('password')?.touched)
+      {
+        @if(this.loginForm.get('password')?.errors?.['required'])
+        {
+          <div class="p-4 mb-4 text-sm text-red-800 rounded-base bg-danger-soft" role="alert">
+            <span class="font-medium">Required</span>
+          </div>
+        }
+          @else if(this.loginForm.get('password')?.errors?.['pattern'])
+         {
+           <div class="p-4 mb-4 text-sm text-red-800 rounded-base bg-danger-soft" role="alert">
+             <span class="font-medium">Invalid Password format</span>
+           </div>
+         }
+
+
+       }
+
+
+    </div>
+
+
+
+
+  <button [disabled]="! this.loginForm.valid" type="submit" class="p-2 cursor-pointer disabled:cursor-not-allowed disabled:bg-green-300  rounded text-white bg-green-700">
+    Login @if(isLoading()) {
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    }</button>
+</form>
+</div>
